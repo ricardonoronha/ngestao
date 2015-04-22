@@ -67,7 +67,7 @@ namespace NGestao
                 var comandoCod = conectRedmine.CreateCommand();
                 comandoCod.CommandText = "SET CLIENT_ENCODING TO 'LATIN1'";
                 comandoCod.ExecuteNonQuery();
-
+                
                 var command = conectRedmine.CreateCommand();
                 command.CommandText =
                     @" SELECT 
