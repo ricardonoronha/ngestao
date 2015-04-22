@@ -18,7 +18,7 @@ namespace NGestao
             InitializeComponent();
         }
 
-        string local = "Provider=PostgreSQL; User ID=postgres; Password=teste; Host=localhost; Port=5432; Database=ngestao; Pooling=false; Min Pool Size=0; Max Pool Size=100; Connection Lifetime=0;";
+        string local = "Provider=PostgreSQL; User ID=rei; Password=teste; Host=ricardo-noronha; Port=5432; Database=ngestao2; Pooling=false; Min Pool Size=0; Max Pool Size=100; Connection Lifetime=0;";
         string redmine = "Provider=PostgreSQL; User ID=rei; Password=teste; Host=torres.reitech.com.br; Port=5432; Database=redmine; Pooling=false; Min Pool Size=0; Max Pool Size=100; Connection Lifetime=0;";
 
         private void btnTeste_Click(object sender, EventArgs e)
@@ -64,6 +64,10 @@ namespace NGestao
                 conectLocal.Open();
                 conectRedmine.Open();
 
+                var comandoCod = conectRedmine.CreateCommand();
+                comandoCod.CommandText = "SET CLIENT_ENCODING 'latin1'";
+                comandoCod.ExecuteNonQuery();
+
                 var command = conectRedmine.CreateCommand();
                 command.CommandText =
                     @" SELECT 
@@ -101,35 +105,91 @@ namespace NGestao
 
                 conectRedmine.Close();
 
-               
-                foreach (DataRow dataRow in tabela.Rows)
+                using (var connectLocal = new Devart.Data.Universal.UniConnection(local))
                 {
-                    string atribuido = GetString(dataRow["atribuido"]);
-                    int projetoId = GetInt(dataRow["project_id"]);
+                    connectLocal.Open();
+
+                    var comandoEncoding = conectLocal.CreateCommand();
+                    comandoEncoding.CommandText = "SET CLIENT_ENCODING 'latin1'";
+                    comandoEncoding.ExecuteNonQuery();
+
+                    conectLocal.BeginTransaction();
+
+
+                    foreach (DataRow dataRow in tabela.Rows)
+                    {
+                        string atribuido = GetString(dataRow["atribuido"]);
+                        string projeto = GetString(dataRow["projeto"]);
+                        int projetoId = GetInt(dataRow["project_id"]);
+                        int atribuidoId = GetInt(dataRow["atibuido_id"]);
+                        int feedback = GetInt(dataRow["feedback"]);
+                        int feedbackUrgencias = GetInt(dataRow["feedback_urgencias"]);
+                        int resolvidasUrgencias = GetInt(dataRow["resolvidas_urgencias"]);
+                        int resolvidas = GetInt(dataRow["resolvidas"]);
+                        int feedbackClienteUrgencias = GetInt(dataRow["feedback_cliente_urgencia"]);
+                        int giveFeedbackCliente = GetInt(dataRow["GiveFeedback_cliente"]);
+                        int novaAbertoUrgencias = GetInt(dataRow["nova_aberto_urgencias"]);
+                        int novaAberto = GetInt(dataRow["nova_aberto"]);
+                        int aguardandDevUrgencias = GetInt(dataRow["aguardando_dev_urgencias"]);
+                        int aguardandoDev = GetInt(dataRow["aguardando_dev"]);
+                        int emAndamentoUrgencias = GetInt(dataRow["em_andamento_urgencias"]);
+                        int emAndamento = GetInt(dataRow["em_andamento"]);
+                        int rejeitadasUrgencias = GetInt(dataRow["rejeitadas_urgencias"]);
+                        int rejeitadas = GetInt(dataRow["rejeitadas"]);
+                        int fechadasUrgencias = GetInt(dataRow["fechadas_urgencias"]);
+                        int fechadas = GetInt(dataRow["fechadas"]);
+                        int aguardandoAtuUrgencias = GetInt(dataRow["aguardando_atu_urgencias"]);
+                        int aguardandoAtu = GetInt(dataRow["aguardando_atu"]);
+
+                        var comando = conectLocal.CreateCommand();
+                        comando.CommandText =
+                                             @"INSERT INTO r_sumario_tarefas 
+                                        ( atribuido_id,  atribuido,  projeto_id,  projeto,  feedback,  feedback_urgencias,  resolvidas,  resolvidas_urgencias,
+                                          feedback_cliente,  feedback_cliente_urgencias,  nova_aberto,  nova_aberto_urgencias,  aguardando_dev,  aguardando_dev_urgencias,
+                                          em_andamento,  em_andamento_urgencias,  rejeitadas,  rejeitadas_urgencias,  fechadas,  fechadas_urgencias,
+                                          aguardando_atu,  aguardando_atu_urgencias
+                                        ) 
+                                            VALUES 
+                                        (
+                                          @atribuido_id,  @atribuido,  @projeto_id,  @projeto,  @feedback,  @feedback_urgencias,  @resolvidas,  @resolvidas_urgencias,
+                                          @feedback_cliente,  @feedback_cliente_urgencias,  @nova_aberto,  @nova_aberto_urgencias,  @aguardando_dev,  @aguardando_dev_urgencias,
+                                          @em_andamento,  @em_andamento_urgencias,  @rejeitadas,  @rejeitadas_urgencias,  @fechadas,  @fechadas_urgencias,  @aguardando_atu,
+                                          @aguardando_atu_urgencias)";
+
+                        comando.Parameters.Add("@atribuido_id", atribuidoId);
+                        comando.Parameters.Add("@atribuido", atribuido);
+                        comando.Parameters.Add("@projeto_id", projetoId);
+                        comando.Parameters.Add("@projeto", projeto);
+                        comando.Parameters.Add("@feedback", feedback);
+                        comando.Parameters.Add("@feedback_urgencias", feedbackUrgencias);
+                        comando.Parameters.Add("@resolvidas", resolvidas);
+                        comando.Parameters.Add("@resolvidas_urgencias", resolvidasUrgencias);
+                        comando.Parameters.Add("@feedback_cliente", giveFeedbackCliente);
+                        comando.Parameters.Add("@feedback_cliente_urgencias", feedbackClienteUrgencias);
+                        comando.Parameters.Add("@nova_aberto", novaAberto);
+                        comando.Parameters.Add("@nova_aberto_urgencias", novaAbertoUrgencias);
+                        comando.Parameters.Add("@aguardando_dev", aguardandoDev);
+                        comando.Parameters.Add("@aguardando_dev_urgencias", aguardandDevUrgencias);
+                        comando.Parameters.Add("@em_andamento", emAndamento);
+                        comando.Parameters.Add("@em_andamento_urgencias", emAndamentoUrgencias);
+                        comando.Parameters.Add("@rejeitadas", rejeitadas);
+                        comando.Parameters.Add("@rejeitadas_urgencias", rejeitadasUrgencias);
+                        comando.Parameters.Add("@fechadas", fechadas);
+                        comando.Parameters.Add("@fechadas_urgencias", fechadasUrgencias);
+                        comando.Parameters.Add("@aguardando_atu", aguardandoAtu);
+                        comando.Parameters.Add("@aguardando_atu_urgencias", aguardandoAtuUrgencias);
+
+                    }
+
+                    conectLocal.Commit();
+
                 }
 
-
-
-
-
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
-
-            using (var novaConexao = new Devart.Data.Universal.UniConnection(local))
-            {
-
-
-            }
-
-
-
-
-            object x = 10;
-            object y = "meu texto";
 
         }
 
@@ -152,8 +212,7 @@ namespace NGestao
 
             return Convert.ToInt32(objeto);
 
-            Convert.ToInt32("10");
-            Convert.ToInt32("vai se ferrar!");
+
         }
 
 
