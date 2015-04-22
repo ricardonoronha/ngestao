@@ -65,7 +65,7 @@ namespace NGestao
                 conectRedmine.Open();
 
                 var comandoCod = conectRedmine.CreateCommand();
-                comandoCod.CommandText = "SET CLIENT_ENCODING 'latin1'";
+                comandoCod.CommandText = "SET CLIENT_ENCODING TO 'LATIN1'";
                 comandoCod.ExecuteNonQuery();
 
                 var command = conectRedmine.CreateCommand();
@@ -110,7 +110,7 @@ namespace NGestao
                     connectLocal.Open();
 
                     var comandoEncoding = conectLocal.CreateCommand();
-                    comandoEncoding.CommandText = "SET CLIENT_ENCODING 'latin1'";
+                    comandoEncoding.CommandText = "SET CLIENT_ENCODING TO 'LATIN1'";
                     comandoEncoding.ExecuteNonQuery();
 
                     conectLocal.BeginTransaction();
@@ -121,7 +121,7 @@ namespace NGestao
                         string atribuido = GetString(dataRow["atribuido"]);
                         string projeto = GetString(dataRow["projeto"]);
                         int projetoId = GetInt(dataRow["project_id"]);
-                        int atribuidoId = GetInt(dataRow["atibuido_id"]);
+                        int atribuidoId = GetInt(dataRow["atribuido_id"]);
                         int feedback = GetInt(dataRow["feedback"]);
                         int feedbackUrgencias = GetInt(dataRow["feedback_urgencias"]);
                         int resolvidasUrgencias = GetInt(dataRow["resolvidas_urgencias"]);
