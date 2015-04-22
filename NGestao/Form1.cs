@@ -86,22 +86,33 @@ namespace NGestao
                           ( SUM ( CASE WHEN (status = 'Rejeitada'					AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) rejeitadas,
                           ( SUM ( CASE WHEN (status = 'Fechada'						AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) fechadas_urgencias,
                           ( SUM ( CASE WHEN (status = 'Fechada'						AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) fechadas,
-                          ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) aguardando_atu_urgencias,,
+                          ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) aguardando_atu_urgencias,
                           ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) aguardando_atu
                        FROM v_issues
                        GROUP BY atribuido_id, atribuido, project_id, projeto ";
 
                 var tabela = new DataTable();
 
-                var fator = command.CommandText;
+                var dataReader = command.ExecuteReader();
+                tabela.Load(dataReader);
 
+                dataReader.Close();
 
+                conectRedmine.Close();
+                
 
             }
             catch (Exception)
             {
 
             }
+
+            using (var novaConexao = new Devart.Data.Universal.UniConnection(local))
+            {
+
+
+            } 
+            
 
 
 
