@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
 
 namespace NGestao
 {
@@ -99,7 +100,18 @@ namespace NGestao
                 dataReader.Close();
 
                 conectRedmine.Close();
-                
+
+               
+                foreach (DataRow dataRow in tabela.Rows)
+                {
+                    string atribuido = GetString(dataRow["atribuido"]);
+                    int projetoId = GetInt(dataRow["project_id"]);
+                }
+
+
+
+
+
 
             }
             catch (Exception)
@@ -111,12 +123,37 @@ namespace NGestao
             {
 
 
-            } 
-            
+            }
 
 
 
 
+            object x = 10;
+            object y = "meu texto";
+
+        }
+
+        public string GetString(object objeto)
+        {
+            if (DBNull.Value.Equals(objeto))
+            {
+                return string.Empty;
+            }
+
+            return objeto.ToString();
+        }
+
+        public int GetInt(object objeto)
+        {
+            if (DBNull.Value.Equals(objeto))
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(objeto);
+
+            Convert.ToInt32("10");
+            Convert.ToInt32("vai se ferrar!");
         }
 
 
