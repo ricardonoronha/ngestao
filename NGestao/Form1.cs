@@ -77,22 +77,22 @@ namespace NGestao
                           projeto,
                           ( SUM ( CASE WHEN (status = 'Feedback' 					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) feedback,
                           ( SUM ( CASE WHEN (status = 'Feedback' 					AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) feedback_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Resolvida' 					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) resolvidas_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Resolvida' 					AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) resolvidas,
-                          ( SUM ( CASE WHEN (status = 'Feedback-Cliente'			AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) feedback_cliente_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Feedback-Cliente'			AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) GiveFeedback_cliente,
-                          ( SUM ( CASE WHEN (status = 'Nova aberto'					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) nova_aberto_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Nova aberto'					AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) nova_aberto,
-                          ( SUM ( CASE WHEN (status = 'Aguardando Desenvolvimento'	AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) aguardando_dev_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Aguardando Desenvolvimento'	AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) aguardando_dev,
-                          ( SUM ( CASE WHEN (status = 'Em andamento'				AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) em_andamento_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Em andamento'				AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) em_andamento,
-                          ( SUM ( CASE WHEN (status = 'Rejeitada'					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) rejeitadas_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Rejeitada'					AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) rejeitadas,
-                          ( SUM ( CASE WHEN (status = 'Fechada'						AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) fechadas_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Fechada'						AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) fechadas,
-                          ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) aguardando_atu_urgencias,
-                          ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade IN (5, 6, 7)		) THEN 1 ELSE 0 END ) ) aguardando_atu
+                          ( SUM ( CASE WHEN (status = 'Resolvida' 					AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) resolvidas_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Resolvida' 					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) resolvidas,
+                          ( SUM ( CASE WHEN (status = 'Feedback-Cliente'			AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) feedback_cliente_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Feedback-Cliente'			AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) GiveFeedback_cliente,
+                          ( SUM ( CASE WHEN (status = 'Nova aberto'					AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) nova_aberto_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Nova aberto'					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) nova_aberto,
+                          ( SUM ( CASE WHEN (status = 'Aguardando Desenvolvimento'	AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) aguardando_dev_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Aguardando Desenvolvimento'	AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) aguardando_dev,
+                          ( SUM ( CASE WHEN (status = 'Em andamento'				AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) em_andamento_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Em andamento'				AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) em_andamento,
+                          ( SUM ( CASE WHEN (status = 'Rejeitada'					AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) rejeitadas_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Rejeitada'					AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) rejeitadas,
+                          ( SUM ( CASE WHEN (status = 'Fechada'						AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) fechadas_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Fechada'						AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) fechadas,
+                          ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade IN (5, 6, 7)	    ) THEN 1 ELSE 0 END ) ) aguardando_atu_urgencias,
+                          ( SUM ( CASE WHEN (status = 'Aguardando Atualização'		AND v_issues.prioridade NOT IN (5, 6, 7)	) THEN 1 ELSE 0 END ) ) aguardando_atu
                        FROM v_issues
                        GROUP BY atribuido_id, atribuido, project_id, projeto ";
 
@@ -126,7 +126,7 @@ namespace NGestao
                         int feedbackUrgencias = GetInt(dataRow["feedback_urgencias"]);
                         int resolvidasUrgencias = GetInt(dataRow["resolvidas_urgencias"]);
                         int resolvidas = GetInt(dataRow["resolvidas"]);
-                        int feedbackClienteUrgencias = GetInt(dataRow["feedback_cliente_urgencia"]);
+                        int feedbackClienteUrgencias = GetInt(dataRow["feedback_cliente_urgencias"]);
                         int giveFeedbackCliente = GetInt(dataRow["GiveFeedback_cliente"]);
                         int novaAbertoUrgencias = GetInt(dataRow["nova_aberto_urgencias"]);
                         int novaAberto = GetInt(dataRow["nova_aberto"]);
@@ -179,10 +179,13 @@ namespace NGestao
                         comando.Parameters.Add("@aguardando_atu", aguardandoAtu);
                         comando.Parameters.Add("@aguardando_atu_urgencias", aguardandoAtuUrgencias);
 
+                        comando.ExecuteNonQuery();
+
                     }
 
                     conectLocal.Commit();
 
+                    MessageBox.Show("Leitura concluída.");
                 }
 
             }
